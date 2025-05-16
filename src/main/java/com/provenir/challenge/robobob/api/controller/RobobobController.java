@@ -1,0 +1,35 @@
+package com.provenir.challenge.robobob.api.controller;
+
+import com.provenir.challenge.robobob.api.dto.AnswerResponseDto;
+import com.provenir.challenge.robobob.api.dto.QuestionRequestDto;
+import com.provenir.challenge.robobob.service.core.QuestionService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/robobob")
+public class RobobobController {
+
+    private static final Logger logger = LoggerFactory.getLogger(RobobobController.class);
+    private final QuestionService questionService;
+
+    @Autowired
+    public RobobobController(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+    @PostMapping("/ask")
+    public ResponseEntity<AnswerResponseDto> askQuestion(@Valid @RequestBody QuestionRequestDto request){
+        logger.info("Question : {}", request.getQuestion());
+        String answer = questionService.answerQuestion(request.getQuestion());
+        logger.debug("Answer : {}",answer);
+        return ResponseEntity.ok(new AnswerResponseDto(answer));
+    }
+}
