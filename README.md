@@ -1,11 +1,11 @@
-#RoboBob API
+# RoboBob API
 
-##Overview
+## Overview
 
 RoboBob is a Spring Boot application which serves as a question-answering API. It can handle predefined questions, arithmetic expressions, and provide fallback responses for questions that it is not pre-trained. 
 The API is designed with a clean architecture following SOLID principles and employs Strategy and Chain of Responsibility patterns for handling different types of questions.
 
-##Features
+## Features
 
 - **Predefined Question Answering**: Answers questions from pre-defined set of questions and answers loaded from a JSON file.
 - **Arithmetic Expression Computing**: Computes arithmetic expressions when asked in natural language. 
