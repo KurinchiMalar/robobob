@@ -62,7 +62,7 @@ public class ArithmeticExpressionEvaluatorTest {
     @Test
     @DisplayName("Should throw ArithmeticException for divison by zero")
     public void testEvaluate_DivisionByZero_ThrowsException(){
-        assertThrows(IllegalArgumentException.class, () -> evaluator.evaluate("7/0"));
+        assertThrows(ArithmeticException.class, () -> evaluator.evaluate("7/0"));
     }
 
     @ParameterizedTest

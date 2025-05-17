@@ -54,7 +54,10 @@ public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
 
         try{
             return processArithmeticExpression(expression);
-        } catch (Exception e) {
+        } catch(ArithmeticException e){
+            logger.warn("Error evaluating expression: {}",expression,e);
+            throw new ArithmeticException(""+e);
+        }catch(Exception e) {
             logger.warn("Error evaluating expression: {}",expression,e);
             throw new IllegalArgumentException("Invalid arithmetic expression: "+expression,e);
         }
@@ -67,7 +70,7 @@ public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
      * @param expression The formatted arithmetic expression to evaluate.
      * @return double The computed result of the expression.
      */
-    private double processArithmeticExpression(String expression){
+    private double processArithmeticExpression(String expression) {
 
         Stack<Double> values = new Stack<>();
         Stack<Character> operators = new Stack<>();

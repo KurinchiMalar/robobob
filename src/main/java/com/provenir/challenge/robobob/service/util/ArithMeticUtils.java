@@ -62,8 +62,9 @@ public class ArithMeticUtils {
      * @param a Given operand1
      * @param b Given operand2
      * @return double The result of the computed operation between a and b is returned.
+     * @throws ArithmeticException Division by zero
      */
-    private static double computeOperation(char operator, double a, double b){
+    private static double computeOperation(char operator, double a, double b) throws ArithmeticException{
         return switch(operator){
             case '+' -> a + b;
             case '-' -> a - b;
@@ -86,7 +87,7 @@ public class ArithMeticUtils {
      * @throws IllegalArgumentException when the operator is invalid
      * @throws java.util.EmptyStackException when the stack doesn't have sufficient elements to process.
      */
-    public static void applyOperator(Stack<Double> values, Stack<Character> operators){
+    public static void applyOperator(Stack<Double> values, Stack<Character> operators) {
         char op = operators.pop();
         double b = values.pop();
         double a = values.pop();

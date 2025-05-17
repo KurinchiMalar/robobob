@@ -110,7 +110,7 @@ public class ArithmeticQAStrategyTest {
 
         String answer = arithmeticQAStrategy.answer(question);
 
-        assertEquals("Sorry! I am not able to calculate that. Please check expression.",answer);
+        assertEquals("Sorry! Invalid Arithmetic Expression: Division by zero",answer);
         verify(evaluator).evaluate("5/0");
 
     }

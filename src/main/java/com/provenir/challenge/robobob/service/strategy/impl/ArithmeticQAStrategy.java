@@ -78,6 +78,7 @@ public class ArithmeticQAStrategy implements QAStrategy {
      * Answers an arithmetic question by evaluating the expression present in the question.
      * @param question The question to be answered.
      * @return String The result of expression or an error message if the evaluation fails.
+     * @throws ArithmeticException Division by zero and other arithmetic reasons.
      */
 
     @Override
@@ -93,7 +94,10 @@ public class ArithmeticQAStrategy implements QAStrategy {
             double result = evaluator.evaluate(expression);
             String formattedResult = ArithMeticUtils.formatArithmeticComputationResult(result);
             return " Answer is : "+ formattedResult;
-        }catch (Exception ex){
+        }catch (ArithmeticException ex){
+            logger.warn("Invalid Arithmetic expression :{} in question :{}",expression,question);
+            return "Sorry! Invalid Arithmetic Expression: "+ex.getMessage();
+        }catch(Exception ex){
             logger.warn("Error evaluating expression :{} in question :{}",expression,question);
             return "Sorry! I am not able to calculate that. Please check expression.";
         }
