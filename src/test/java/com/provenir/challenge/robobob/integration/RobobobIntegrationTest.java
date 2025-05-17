@@ -50,4 +50,80 @@ public class RobobobIntegrationTest {
         assertEquals(expectedAnswer,response.getAnswer());
 
     }
+
+    @Test
+    @DisplayName("Integration Test - Arithmetic question should return correct answer")
+    public void testKnownArithmeticQuestion() throws Exception{
+
+        QuestionRequestDto requestDto = new QuestionRequestDto("What is 50 + 20?");
+        String expectedAnswer = " Answer is : 70";
+
+        MvcResult result = mockMvc.perform(post(ASK_API_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        AnswerResponseDto response = objectMapper.readValue(
+                result.getResponse().getContentAsString(),
+                AnswerResponseDto.class);
+
+        assertNotNull(response);
+        assertEquals(expectedAnswer,response.getAnswer());
+
+    }
+
+    @Test
+    @DisplayName("Integration Test - Arithmetic Question with multiple operators should return correct answer")
+    public void testArithmeticQuestionWithAllOperators() throws Exception{
+
+        QuestionRequestDto requestDto = new QuestionRequestDto("Calculate (14 + 2) * (40 / 3) / 2");
+        String expectedAnswer = " Answer is : 106.67";
+
+        MvcResult result = mockMvc.perform(post(ASK_API_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        AnswerResponseDto response = objectMapper.readValue(
+                result.getResponse().getContentAsString(),
+                AnswerResponseDto.class);
+
+        assertNotNull(response);
+        assertEquals(expectedAnswer,response.getAnswer());
+
+    }
+
+    @Test
+    @DisplayName("Integration Test - UnknownQuestion should give a fallback response")
+    public void testUnKnownQuestion() throws Exception{
+
+        QuestionRequestDto requestDto = new QuestionRequestDto("Is the weather okay today?");
+
+        MvcResult result = mockMvc.perform(post(ASK_API_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        AnswerResponseDto response = objectMapper.readValue(
+                result.getResponse().getContentAsString(),
+                AnswerResponseDto.class);
+
+        assertNotNull(response);
+        assertNotNull(response.getAnswer()); // can be random from the fallback answers collection maintained.
+    }
+
+    @Test
+    @DisplayName("Integration test - Invalid question format should return badRequest error")
+    public void testInvalidQuestionFormat() throws Exception{
+        QuestionRequestDto requestDto = new QuestionRequestDto("hi");
+
+        mockMvc.perform(post(ASK_API_URI)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                        .andExpect(status().isBadRequest());
+    }
+
 }
