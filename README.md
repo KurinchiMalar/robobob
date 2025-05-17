@@ -200,7 +200,7 @@ public class NewQAStrategy implements QAStrategy {
 }
 
 ```
-##Testing
+## Testing
 
 The application has Unit, Integration and Controller Tests. The Test suite components ensure complete coverage and code quality standards have been ensured. 
 
