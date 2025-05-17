@@ -56,7 +56,7 @@ public class FileBasedRepository implements QuestionRepository {
         return Collections.unmodifiableMap(questionAnswersMap);
     }
 
-    private void readFromFileAndLoadQuestions() throws IOException {
+    protected void readFromFileAndLoadQuestions() throws IOException {
 
         try(InputStream inputStream = new ClassPathResource(filename).getInputStream()){
 

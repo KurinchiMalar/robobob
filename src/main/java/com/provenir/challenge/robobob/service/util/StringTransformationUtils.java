@@ -4,7 +4,8 @@ import com.provenir.challenge.robobob.api.constants.RegexPatterns;
 
 public class StringTransformationUtils {
 
-    public static String convertToLowerCaseAndRemoveAllWhiteSpaces(String str){
-        return str.trim().toLowerCase().replaceAll(RegexPatterns.ONE_OR_MORE_WHITESPACE.getValue(), "");
+    public static String convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(String str){
+        String result = str.trim().toLowerCase().replaceAll(RegexPatterns.ZERO_OR_MORE_TRAILING_WHITESPACE.getValue(), "");
+        return result.replaceAll(RegexPatterns.QUESTION_MARK.getValue(), "");
     }
 }

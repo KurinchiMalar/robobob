@@ -26,6 +26,8 @@ public class DefaultQuestionService implements QuestionService {
     @Cacheable(value = "questionCache", key ="#question", unless = "#result == null")
     public String answerQuestion(String question) {
 
+        logger.info("Cache miss for question : {} ",question);
+
         if(question == null || question.trim().isEmpty()){
             throw new IllegalArgumentException("Question cannot be empty");
         }

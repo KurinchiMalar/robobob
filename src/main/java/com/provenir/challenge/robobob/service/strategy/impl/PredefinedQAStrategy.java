@@ -1,6 +1,5 @@
 package com.provenir.challenge.robobob.service.strategy.impl;
 
-import com.provenir.challenge.robobob.api.constants.RegexPatterns;
 import com.provenir.challenge.robobob.service.core.repo.QuestionRepository;
 import com.provenir.challenge.robobob.service.strategy.QAStrategy;
 import com.provenir.challenge.robobob.service.util.StringTransformationUtils;
@@ -38,7 +37,7 @@ public class PredefinedQAStrategy implements QAStrategy {
     }
 
     private Optional<String> findAnswer(String question){
-        return questionRepository.findAnswerFor(StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question));
+        return questionRepository.findAnswerFor(StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question));
     }
 
 

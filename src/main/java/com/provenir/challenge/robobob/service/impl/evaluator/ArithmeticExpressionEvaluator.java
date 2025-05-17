@@ -7,9 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
@@ -36,7 +33,7 @@ public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
         }
 
         // format expression to remove whitespaces and make it eligible for evaluation.
-        expression = expression.replaceAll(RegexPatterns.ONE_OR_MORE_WHITESPACE.getValue(), "");
+        expression = expression.replaceAll(RegexPatterns.ZERO_OR_MORE_TRAILING_WHITESPACE.getValue(), "");
 
         try{
             return processArithmeticExpression(expression);

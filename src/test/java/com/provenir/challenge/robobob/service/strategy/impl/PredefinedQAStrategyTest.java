@@ -35,7 +35,7 @@ public class PredefinedQAStrategyTest {
     public void testIsAnswerable_RepoHasAnswer_ReturnsTrue(){
 
         String question = "What is your name?";
-        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question);
+        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question);
         when(questionRepository.findAnswerFor(formattedQuestion)).thenReturn(Optional.of("My name is RoboBob!"));
 
         boolean isAnswerable = predefinedQAStrategy.isAnswerable(question);
@@ -49,7 +49,7 @@ public class PredefinedQAStrategyTest {
     public void testIsAnswerable_RepoHasNoAnswer_ReturnsFalse(){
 
         String question = "Random Question?";
-        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question);
+        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question);
         when(questionRepository.findAnswerFor(formattedQuestion)).thenReturn(Optional.empty());
 
         boolean isAnswerable = predefinedQAStrategy.isAnswerable(question);
@@ -64,7 +64,7 @@ public class PredefinedQAStrategyTest {
 
         String question = "What is your name?";
         String expectedAnswer = "My name is RoboBob!";
-        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question);
+        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question);
         when(questionRepository.findAnswerFor(formattedQuestion)).thenReturn(Optional.of(expectedAnswer));
 
         String answer = predefinedQAStrategy.answer(formattedQuestion);
@@ -79,7 +79,7 @@ public class PredefinedQAStrategyTest {
 
         String question = "WhAt is Your nAme?";
         String expectedAnswer = "My name is RoboBob!";
-        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question);
+        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question);
         when(questionRepository.findAnswerFor(formattedQuestion)).thenReturn(Optional.of(expectedAnswer));
 
         String answer = predefinedQAStrategy.answer(formattedQuestion);
@@ -93,7 +93,7 @@ public class PredefinedQAStrategyTest {
     public void testAnswer_QuestionNotPresentInRepo_ReturnsDefaultAnswer(){
 
         String question = "Unknown?";
-        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpaces(question);
+        String formattedQuestion = StringTransformationUtils.convertToLowerCaseAndRemoveAllWhiteSpacesAndQuestionMark(question);
         when(questionRepository.findAnswerFor(formattedQuestion)).thenReturn(Optional.empty());
 
         String answer = predefinedQAStrategy.answer(formattedQuestion);

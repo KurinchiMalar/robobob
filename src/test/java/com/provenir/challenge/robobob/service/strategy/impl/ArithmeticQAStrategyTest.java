@@ -1,7 +1,7 @@
 package com.provenir.challenge.robobob.service.strategy.impl;
 
 
-import com.provenir.challenge.robobob.service.impl.evaluator.ArithmeticExpressionEvaluatorTest;
+import com.provenir.challenge.robobob.service.impl.evaluator.ArithmeticExpressionEvaluator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 public class ArithmeticQAStrategyTest {
 
     @Mock
-    private ArithmeticExpressionEvaluatorTest evaluator;
+    private ArithmeticExpressionEvaluator evaluator;
 
     private ArithmeticQAStrategy arithmeticQAStrategy;
 

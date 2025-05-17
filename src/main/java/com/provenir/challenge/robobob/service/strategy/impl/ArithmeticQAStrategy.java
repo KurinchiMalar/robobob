@@ -73,7 +73,7 @@ public class ArithmeticQAStrategy implements QAStrategy {
             // matcher.group(0) = entire question
             // matcher.group(1) = first capturing group. In this case (.*?) , which is the expression.
             String expression =  matcher.group(1).trim();
-            if(expression.matches(RegexConstants.ARITHMETIC_EXPRESSION_VALID_ELEMENTS_REGEX)){
+            if(expression.matches(RegexConstants.getArithMeticExpressionRegex())){
                 return expression;
             }
         }
