@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller for Robobob application which can answer questions.
+ * Provides API endpoint for submitting questions and responding with answers.
+ * @author KurinchiMalar
+ */
 @RestController
 @RequestMapping("/api/v1/robobob")
 public class RobobobController {
@@ -20,11 +25,20 @@ public class RobobobController {
     private static final Logger logger = LoggerFactory.getLogger(RobobobController.class);
     private final QuestionService questionService;
 
+    /**
+     * Constructs a RobobobController instance with the specified QuestionService.
+     * @param questionService Service for actually processing the questions and generate answers.
+     */
     @Autowired
     public RobobobController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
+    /**
+     * POST end point for submitting questions to Robobob.
+     * @param request DTO containing the question to be answered.
+     * @return ResponseEntity containing the answer and timestamp.
+     */
     @PostMapping("/ask")
     public ResponseEntity<AnswerResponseDto> askQuestion(@Valid @RequestBody QuestionRequestDto request){
         logger.info("Question : {}", request.getQuestion());

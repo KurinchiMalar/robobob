@@ -18,6 +18,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Repository implementation that loads question and answers from a pre-configured JSON file
+ * The purpose of this class is to provide ability to lookup for pre-configured questions and answers.
+ * @author KurinchiMalar
+ */
 @Repository
 public class FileBasedRepository implements QuestionRepository {
 
@@ -27,12 +32,20 @@ public class FileBasedRepository implements QuestionRepository {
     private final ObjectMapper objectMapper;
     private Map<String,String> questionAnswersMap;
 
+    /**
+     * Constructs FileBasedRepository instance with the specified questions configuration file.
+     *
+     * @param filename Path to the JSON file containing the pre-configured question, answer pairs
+     */
     public FileBasedRepository(@Value("${robobob.questions.file}") String filename) {
         this.filename = filename;
         this.objectMapper = new ObjectMapper();
         this.questionAnswersMap = new HashMap<>();
     }
 
+    /**
+     * Initializes the repository by loading questions from the configuration file.
+     */
     @PostConstruct
     public void init(){
         try{
@@ -45,17 +58,32 @@ public class FileBasedRepository implements QuestionRepository {
         }
     }
 
+    /**
+     * Finds an answer for the given question.
+     * @param question The question to lookup.
+     * @return Optional with the answer if found, empty otherwise.
+     */
     @Override
     public Optional<String> findAnswerFor(String question) {
         String formattedQuestion = question.toLowerCase().trim();
         return Optional.ofNullable(questionAnswersMap.get(formattedQuestion));
     }
 
+    /**
+     * Gets all the question-answer pairs loaded in the repository.
+     *
+     * @return UnmodifiableMap of all question-answer pairs.
+     */
     @Override
     public Map<String, String> getAllQuestionsAndAnswers() {
         return Collections.unmodifiableMap(questionAnswersMap);
     }
 
+    /**
+     * Reads questions from JSON file and loads them into memory. (internal map)
+     *
+     * @throws IOException if there is an error reading the file.
+     */
     protected void readFromFileAndLoadQuestions() throws IOException {
 
         try(InputStream inputStream = new ClassPathResource(filename).getInputStream()){
@@ -69,6 +97,12 @@ public class FileBasedRepository implements QuestionRepository {
         }
     }
 
+    /**
+     * Utility method that formats the keys of the question-answer map to lowercase and trims whitespace.
+     *
+     * @param inputMap The input question-answer map without any formatting.
+     * @return Formatted map keys converted to lowercase and trimmed whitespace.
+     */
     private Map<String,String> formatMap(Map<String,String> inputMap){
         return inputMap.entrySet().stream()
                 .collect(Collectors.toMap(

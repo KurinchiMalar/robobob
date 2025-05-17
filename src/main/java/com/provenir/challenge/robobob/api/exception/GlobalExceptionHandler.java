@@ -14,11 +14,22 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global Exception Handler for the application.
+ * Provides centralized exception handling.
+ * @author KurinchiMalar
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    /**
+     * Handles IllegalArgumentException
+     *
+     * @param ex The exception to handle
+     * @return ResponseEntity containing error details.
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDto> handleIllegalArgException(IllegalArgumentException ex){
         logger.warn("Invalid input: {}",ex.getMessage());
@@ -28,6 +39,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
+    /**
+     * Handles MethodArgumentNotValidException
+     *
+     * @param ex The validation exception
+     * @return ResponseEntity containing validation error details.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex){
 
@@ -47,6 +64,12 @@ public class GlobalExceptionHandler {
 
     }
 
+    /**
+     * Handles all other uncaught exceptions.
+     *
+     * @param ex The exception to handle.
+     * @return ResponseEntity containing generic error details.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGenericException(Exception ex){
 

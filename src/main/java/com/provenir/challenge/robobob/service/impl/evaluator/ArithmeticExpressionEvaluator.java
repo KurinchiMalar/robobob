@@ -10,12 +10,23 @@ import org.springframework.stereotype.Component;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
+/**
+ * Component for evaluating arithmetic expressions.
+ * Validates and solves the arithmetic expression using stack-based algorithm.
+ * @author KurinchiMalar
+ */
 @Component
 public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
 
     private static final Logger logger = LoggerFactory.getLogger(ArithmeticExpressionEvaluator.class);
 
     private static final Pattern VALID_ARITHMETIC_EXP = Pattern.compile(RegexPatterns.ARITHMETIC_EXPRESSION.getValue());
+
+    /**
+     * Checks if the given expression is a properly formatted valid arithmetic expression
+     * @param expression The expression to validate
+     * @return true if the expression is valid, false otherwise
+     */
     @Override
     public boolean isValidExpression(String expression) {
 
@@ -25,6 +36,12 @@ public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
         return VALID_ARITHMETIC_EXP.matcher(expression).matches();
     }
 
+    /**
+     * Evaluates a valid arithmetic expression and returns the result.
+     * @param expression The arithmetic expression to evaluate.
+     * @return double The computed result of the expression
+     * @throws IllegalArgumentException if the expression is invalid
+     */
     @Override
     public  double evaluate(String expression) {
 
@@ -43,6 +60,13 @@ public class ArithmeticExpressionEvaluator implements ExpressionEvaluator {
         }
     }
 
+    /**
+     * This method processes the arithmetic expression using stacks for values and operators.
+     * Constructs the reverse polish notation (RPN) for a given expression and evaluates as per precedence.
+     *
+     * @param expression The formatted arithmetic expression to evaluate.
+     * @return double The computed result of the expression.
+     */
     private double processArithmeticExpression(String expression){
 
         Stack<Double> values = new Stack<>();
