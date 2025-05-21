@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author KurinchiMalar
  */
 @RestController
-@RequestMapping("/api/v1/robobob")
+@RequestMapping("/api/v1")
 public class RobobobController {
 
     private static final Logger logger = LoggerFactory.getLogger(RobobobController.class);

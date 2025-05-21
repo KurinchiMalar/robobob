@@ -28,7 +28,7 @@ public class RobobobIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final String ASK_API_URI = "/api/v1/robobob/ask";
+    private final String ASK_API_URI = "/api/v1/ask";
     @Test
     @DisplayName("Integration Test - Known question should return exact answer")
     public void testKnownQuestion() throws Exception{

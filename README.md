@@ -34,7 +34,7 @@ The application follows a layered architecture:
 
 ### Ask a Question
 ```
-POST /api/v1/robobob/ask
+POST /api/v1/ask
 ```
 
 #### Request Body

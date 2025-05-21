@@ -42,7 +42,7 @@ public class GlobalExceptionHandlerTest {
 
         when(questionService.answerQuestion(anyString())).thenThrow(new IllegalArgumentException(errorMessage));
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isBadRequest())
@@ -57,7 +57,7 @@ public class GlobalExceptionHandlerTest {
 
         QuestionRequestDto requestDto = new QuestionRequestDto("");
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isBadRequest())
@@ -77,7 +77,7 @@ public class GlobalExceptionHandlerTest {
 
         when(questionService.answerQuestion(anyString())).thenThrow(new RuntimeException(errorMessage));
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isInternalServerError())

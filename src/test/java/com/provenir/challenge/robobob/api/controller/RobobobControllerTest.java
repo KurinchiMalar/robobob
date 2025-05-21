@@ -38,7 +38,7 @@ public class RobobobControllerTest {
 
         when(questionService.answerQuestion(anyString())).thenReturn(expectedAnswer);
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
@@ -55,7 +55,7 @@ public class RobobobControllerTest {
 
         when(questionService.answerQuestion(anyString())).thenReturn(expectedAnswer);
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
@@ -69,7 +69,7 @@ public class RobobobControllerTest {
 
         QuestionRequestDto requestDto = new QuestionRequestDto("");
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isBadRequest())
@@ -83,7 +83,7 @@ public class RobobobControllerTest {
 
         QuestionRequestDto requestDto = new QuestionRequestDto("hi");
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isBadRequest())
@@ -99,7 +99,7 @@ public class RobobobControllerTest {
         for(int i = 0; i < 501; i++) longQuestionSb.append("a");
         QuestionRequestDto requestDto = new QuestionRequestDto(longQuestionSb.toString());
 
-        mockMvc.perform(post("/api/v1/robobob/ask")
+        mockMvc.perform(post("/api/v1/ask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isBadRequest())
